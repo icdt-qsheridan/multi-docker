@@ -1,22 +1,22 @@
 sudo: required
 services:
-  - docker
+- docker
 
 before_install:
-  - docker build -t qsherida/react-test -f ./client/Dockerfile.dev
+- docker build -t qsherida/react-test -f ./client/Dockerfile.dev
 
 script:
-  - docker run qsherida/react-test npm test-- --coverage
+- docker run qsherida/react-test npm test-- --coverage
 
 after_success:
-  - docker build -t qsherida/multi-client ./client
-  - docker build -t qsherida/nginx ./nginx
-  - docker build -t qsherida/multi-server ./server
-  - docker build -t qsherida/multi-worker ./worker
-  # log into docker cli
-  echo "DOCKER_PASSWORD" | docker login -u "$DOCKER_ID"  --password-stdin
-  # take those images and push them to docker hub
-  - docker push qsherida/multi-client
-  - docker push qsherida/nginx
-  - docker push qsherida/multi-server
-  - docker push qsherida/multi-worker
+- docker build -t qsherida/multi-client ./client
+- docker build -t qsherida/nginx ./nginx
+- docker build -t qsherida/multi-server ./server
+- docker build -t qsherida/multi-worker ./worker
+# log into docker cli
+echo "DOCKER_PASSWORD" | docker login -u "$DOCKER_ID"  --password-stdin
+# take those images and push them to docker hub
+- docker push qsherida/multi-client
+- docker push qsherida/nginx
+- docker push qsherida/multi-server
+- docker push qsherida/multi-worker
